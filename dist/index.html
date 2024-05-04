@@ -10,30 +10,56 @@
       href="images/Unknown_person.jpg"
       type="image/x-icon"
     />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+      integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+      crossorigin="anonymous"
+    />
     <title>Fake User Generator</title>
   </head>
   <body class="bg-dark-gray">
     <main
-      class="flex flex-col justify-center items-center min-h-screen text-white gap-8"
+      class="flex flex-col justify-center items-center min-h-screen text-white gap-8 m-2"
     >
       <div
-        class="container max-w-sm rounded-md bg-light-gray shadow-[5px_5px_0px_0px_rgb(114,137,218)] relative text-center pt-16"
+        class="container max-w-lg rounded-md bg-light-gray shadow-[5px_5px_0px_0px_rgb(114,137,218)] relative text-center pt-16 pb-6 p-2"
       >
         <img
           class="absolute w-24 h-24 rounded-md shadow-[5px_5px_0px_0px_rgb(114,137,218)] top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          id="user_image"
           src="images/Unknown_person.jpg"
-          alt=""
+          alt="Anonymous"
         />
-        <h1 class="text-primary-blue text-2xl" id="name">mr name robot</h1>
-        <div id="user-name">mr robot</div>
-        <div id="address">mr robot, city</div>
-        <div id="email">mr robot@email</div>
-        <div id="phone">2313213123</div>
-        <div id="location">loc</div>
-        <div id="birth-date">loc</div>
+        <div class="space-y-3 opacity-0 transition-opacity" id="contents">
+          <h1 class="text-primary-blue text-2xl" id="real_name">Anonymous</h1>
+          <div class="text-gray-400" id="user_address">Anonymous</div>
+          <div
+            class="flex justify-center items-center py-4 gap-20 text-gray-300 text-sm"
+          >
+            <div id="user_gender">Anonymous</div>
+            <div id="user_age">Anonymous</div>
+            <div id="user_birthDate">Anonymous</div>
+          </div>
+          <div class="text-xl" id="user_name">Anonymous</div>
+          <div class="text-xl pb-4" id="user_email">Anonymous</div>
+          <div
+            class="flex justify-around items-center border-t-[1px] border-primary-blue pt-4"
+          >
+            <div>
+              <i class="fas fa-phone fa-sm fa-fw"></i>
+              <span id="phone1">Anonymous</span>
+            </div>
+            <div>
+              <i class="fas fa-mobile fa-sm fa-fw"></i>
+              <span id="phone2">Anonymous</span>
+            </div>
+          </div>
+        </div>
       </div>
       <button
         class="bg-light-gray p-2 rounded-md shadow-[3px_3px_0px_2px_rgb(114,137,218)] active:shadow-[0px_0px_0px_0px_rgb(114,137,218)] transition-all duration-75 active:translate-y-1"
+        id="button"
       >
         Get Random User
       </button>
