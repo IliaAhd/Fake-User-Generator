@@ -1,6 +1,5 @@
-const api = "https://randomuser.me/api/";
-
 const fetchAPI = () => {
+  const api = "https://randomuser.me/api/";
   fetch(api)
     .then((res) => res.json())
     .then((data) => {
