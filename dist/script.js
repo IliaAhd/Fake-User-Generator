@@ -16,7 +16,7 @@ const fetchAPI = () => {
       const { phone } = userData;
 
       user_image.setAttribute("src", large);
-      user_address.textContent = `${country}, ${city}, ${state}, ${street.name}`;
+      user_address.textContent = `${country}, ${state}, ${city}, ${street.name}`;
       real_name.textContent = ` ${first} ${last}`;
       user_age.textContent = `Age: ${age}`;
       user_gender.textContent = `Gender: ${gender}`;
