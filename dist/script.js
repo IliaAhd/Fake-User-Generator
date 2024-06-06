@@ -14,7 +14,7 @@ const renderUser = async () => {
     if (!res.ok) throw new Error("Some thing went wrong");
     const data = await res.json();
     const userData = data.results[0];
-
+    console.log(userData);
     // Render data
     img.src = userData.picture.large;
     const markup = `
@@ -28,11 +28,14 @@ const renderUser = async () => {
           <div
             class="flex justify-center items-center py-4 gap-20 text-gray-300 text-sm"
           >
-            <div>${userData.gender}</div>
-            <div>${userData.dob.age}</div>
-            <div>${userData.dob.date.split("T")[0]}</div>
+            <div>Gender: ${userData.gender}</div>
+            <div>Age: ${userData.dob.age}</div>
+            <div>Born: ${userData.dob.date.split("T")[0]}</div>
           </div>
           <div class="text-xl">@${userData.login.username}</div>
+          <div class="text-lg pb-4 text-gray-400">Password: ${
+            userData.login.password
+          }</div>
           <div class="text-xl pb-4">${userData.email}</div>
           <div
             class="flex justify-around items-center border-t-[1px] border-primary-blue pt-4"
