@@ -1,44 +1,75 @@
-const fetchAPI = () => {
-  const api = "https://randomuser.me/api/";
-  fetch(api)
-    .then((res) => res.json())
-    .then((data) => {
-      const userData = data.results[0];
+const img = document.getElementById("user-image");
+const dataContainer = document.getElementById("data-container");
 
-      const { large } = userData.picture;
-      const { first, last } = userData.name;
-      const { country, city, state, street } = userData.location;
-      const { age, date } = userData.dob;
-      const { gender } = userData;
-      const { username } = userData.login;
-      const { email } = userData;
-      const { cell } = userData;
-      const { phone } = userData;
+const renderUser = async () => {
+  try {
+    // set as defualt image
+    img.src = "images/Unknown_person.jpg";
 
-      user_image.setAttribute("src", large);
-      user_address.textContent = `${country}, ${state}, ${city}, ${street.name}`;
-      real_name.textContent = ` ${first} ${last}`;
-      user_age.textContent = `Age: ${age}`;
-      user_gender.textContent = `Gender: ${gender}`;
-      user_birthDate.textContent = `Born: ${calcDate(date)}`;
+    // show loading spinner while promis is loading
+    loadingSpinner(dataContainer);
 
-      user_name.textContent = `@${username}`;
-      user_email.textContent = email;
+    // Catch data
+    const res = await fetch("https://randomuser.me/api/");
+    if (!res.ok) throw new Error("Some thing went wrong");
+    const data = await res.json();
+    const userData = data.results[0];
 
-      phone1.textContent = cell;
-      phone2.textContent = phone;
-
-      contents.classList.remove("opacity-0");
-    })
-    .catch((err) => console.error(err));
+    // Render data
+    img.src = userData.picture.large;
+    const markup = `
+        <div class="space-y-3">
+          <h1 class="text-primary-blue text-2xl">${userData.name.first} ${
+      userData.name.last
+    }</h1>
+          <div class="text-gray-400">${userData.location.country}, ${
+      userData.location.state
+    }, ${userData.location.city}, ${userData.location.street.name}</div>
+          <div
+            class="flex justify-center items-center py-4 gap-20 text-gray-300 text-sm"
+          >
+            <div>${userData.gender}</div>
+            <div>${userData.dob.age}</div>
+            <div>${userData.dob.date.split("T")[0]}</div>
+          </div>
+          <div class="text-xl">@${userData.login.username}</div>
+          <div class="text-xl pb-4">${userData.email}</div>
+          <div
+            class="flex justify-around items-center border-t-[1px] border-primary-blue pt-4"
+          >
+            <div>
+              <i class="fas fa-phone fa-sm fa-fw"></i>
+              <span>${userData.cell}</span>
+            </div>
+            <div>
+              <i class="fas fa-mobile fa-sm fa-fw"></i>
+              <span>${userData.phone}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    dataContainer.innerHTML = "";
+    dataContainer.insertAdjacentHTML("afterbegin", markup);
+  } catch (err) {
+    dataContainer.innerHTML = err;
+  }
 };
 
-const calcDate = (date) => {
-  const convertDate = new Date();
-  const userBirthDate = `${convertDate.getFullYear(date)}/${String(
-    convertDate.getMonth(date)
-  ).padStart(2, 0)}/${String(convertDate.getDay(date)).padStart(2, 0)}`;
-  return userBirthDate;
+const loadingSpinner = (container) => {
+  // Render loading spinner
+  const markup = `
+    <div class="flex items-center justify-center">
+      <div
+        class="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
+        role="status">
+        <span
+          class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+          >Loading...</span
+        >
+      </div>
+    </div>`;
+  container.innerHTML = "";
+  container.insertAdjacentHTML("afterbegin", markup);
 };
 
-button.addEventListener("click", fetchAPI);
+button.addEventListener("click", renderUser);
