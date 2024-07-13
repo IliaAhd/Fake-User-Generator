@@ -4,7 +4,7 @@ const dataContainer = document.getElementById("data-container");
 const renderUser = async () => {
   try {
     // set as defualt image
-    img.src = "images/Unknown_person.jpg";
+    img.src = "./src/images/Unknown_person.jpg";
 
     // show loading spinner while promis is loading
     loadingSpinner(dataContainer);
